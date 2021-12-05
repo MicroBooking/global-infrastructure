@@ -1,0 +1,47 @@
+version: "3.9"
+services:
+  listings-service:
+    build:
+      context: ./listings-service
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    networks:
+      - booking
+  reservations-service:
+    build:
+      context: ./reservations-service
+      dockerfile: Dockerfile
+    ports:
+      - "8081:8080"
+    networks:
+      - booking
+  pg-listings:
+    environment:
+      - POSTGRES_USER=dbuser
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=listings
+    ports:
+      - '5432'
+    image: 'postgres:13'
+    networks:
+      - booking
+  pg-reservations:
+    environment:
+      - POSTGRES_USER=dbuser
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=reservations
+    ports:
+      - '5432'
+    image: 'postgres:13'
+    networks:
+      - booking
+  consul:
+    image: 'consul:latest'
+    ports:
+      - '8500:8500'
+    networks:
+      - booking
+networks:
+  booking:
+    name: booking_network
