@@ -1,0 +1,6 @@
+replicas: 1
+
+datadog:
+  logs:
+    enabled: true
+    containerCollectAll: true
