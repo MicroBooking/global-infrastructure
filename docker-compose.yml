@@ -4,6 +4,12 @@ services:
     build:
       context: ./listings-service
       dockerfile: Dockerfile
+    environment:
+      - PG_HOST=jdbc:postgresql://pg-listings:5432/listings
+      - PG_USER=dbuser
+      - POSTGRES_DB=postgres
+      - PG_PASSWORD=postgres
+      - CONSUL_HOST=http://consul:8500
     ports:
       - "8080:8080"
     networks:
@@ -12,8 +18,28 @@ services:
     build:
       context: ./reservations-service
       dockerfile: Dockerfile
+    environment:
+      - PG_HOST=jdbc:postgresql://pg-reservations:5432/reservations
+      - PG_USER=dbuser
+      - POSTGRES_DB=postgres
+      - PG_PASSWORD=postgres
+      - CONSUL_HOST=http://consul:8500
     ports:
       - "8081:8080"
+    networks:
+      - booking
+  images-service:
+    build:
+      context: ./images-service
+      dockerfile: Dockerfile
+    environment:
+      - PG_HOST=jdbc:postgresql://pg-images:5432/images
+      - PG_USER=dbuser
+      - POSTGRES_DB=postgres
+      - PG_PASSWORD=postgres
+      - CONSUL_HOST=http://consul:8500
+    ports:
+      - "8082:8080"
     networks:
       - booking
   pg-listings:
@@ -31,6 +57,16 @@ services:
       - POSTGRES_USER=dbuser
       - POSTGRES_PASSWORD=postgres
       - POSTGRES_DB=reservations
+    ports:
+      - '5432'
+    image: 'postgres:13'
+    networks:
+      - booking
+  pg-images:
+    environment:
+      - POSTGRES_USER=dbuser
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=images
     ports:
       - '5432'
     image: 'postgres:13'
