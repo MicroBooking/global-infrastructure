@@ -2,8 +2,11 @@ booking_secret
 
 *.iml
 
+frontend
 images-service
 listings-service
 reservations-service
+
+booking_secret
 
 .idea

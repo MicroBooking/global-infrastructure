@@ -1,0 +1,1 @@
+kubectl port-forward services/consul-ui 8888:80 -n consul8:80 -n consul
