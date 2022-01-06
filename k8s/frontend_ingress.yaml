@@ -13,6 +13,17 @@ spec:
     - http:
         paths:
           - path: /
+            pathType: Exact
+            backend:
+              serviceName: frontend-r
+              servicePort: 80
+          - path: /create
+            pathType: Exact
+            backend:
+              serviceName: frontend-r
+              servicePort: 80
+          - path: /details
+            pathType: Prefix
             backend:
               serviceName: frontend-r
               servicePort: 80
