@@ -25,7 +25,3 @@ spec:
             backend:
               serviceName: images-service
               servicePort: 8080
-          - path: /(/|$)(.*)
-            backend:
-              serviceName: frontend-r
-              servicePort: 80
